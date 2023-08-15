@@ -30,7 +30,7 @@ export async function GET(req: Request){
    const query = searchParams.get('q');
    let currentPosts = {message: 'test'}
    if(query){
-      currentPosts = {message: `test query = ${query}`}
+      currentPosts = {message: `test query  = ${query}`}
    }
    return NextResponse.json(currentPosts)
 }

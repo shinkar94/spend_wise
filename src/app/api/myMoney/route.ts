@@ -24,3 +24,13 @@ export async function POST(req: Request){
 
    return NextResponse.json({...userData, token})
 }
+
+export async function GET(req: Request){
+   const {searchParams} = new URL(req.url)
+   const query = searchParams.get('q');
+   let currentPosts = {message: 'test'}
+   if(query){
+      currentPosts = {message: `test query = ${query}`}
+   }
+   return NextResponse.json(currentPosts)
+}

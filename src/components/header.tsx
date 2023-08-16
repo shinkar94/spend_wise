@@ -1,4 +1,4 @@
-import {Navigation} from "@/components/navigation";
+import {Navigation} from "@/components/side_bar/navigation";
 
 const navItems = [
     {label: 'Home', href: "/"},

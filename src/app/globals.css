@@ -4,46 +4,8 @@ body{
   border: 0;
 }
 
-header{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  height: 40px;
-  background: black;
-  color: white;
-}
-
-header a{
-  color: white;
-  font-size: 18px;
-  text-decoration: none;
-}
-
-header a:hover{
-  text-decoration: underline;
-}
-
 .active{
   color: blue;
 }
 
-.search-posts{
-  display: flex;
-  justify-content: center;
-}
 
-.search-posts input{
-  height: 30px;
-}
-
-.search-posts button{
-  background: black;
-  color: white;
-  border: 0;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-}
-.search-posts button:hover{
-  background: brown;
-}

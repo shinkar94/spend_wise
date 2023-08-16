@@ -10,6 +10,7 @@ const navItems = [
     {label: 'Category', href: "/about"},
     {label: 'Spend', href: "/about"},
     {label: 'Money', href: "/about"},
+    {label: 'Testing', href: "/testing"},
 ]
 export const Side_bar_menu =()=>{
     const [navWindow, setNavWindow] = useState<boolean>(false)
@@ -20,7 +21,7 @@ export const Side_bar_menu =()=>{
         // dispatch(onBlurAC('sideBarBtn'))
     }
     return(
-        <Nav navWindow={navWindow} bg={bgNav}>
+        <Nav $navWindow={navWindow} $bg={bgNav}>
             <Navigation navLinks={navItems} />
             <button  onClick={onClickHandler}>{navWindow ? `<<` : `>>`}</button>
         </Nav>
@@ -28,8 +29,8 @@ export const Side_bar_menu =()=>{
     )
 }
 type NavType = {
-    navWindow: boolean
-    bg: boolean
+    $navWindow: boolean
+    $bg: boolean
 }
 const Nav = styled.div<NavType>`
   position: fixed;
@@ -44,10 +45,10 @@ const Nav = styled.div<NavType>`
   transition: 0.5s;
   z-index: 11;
 
-  ${props => props.navWindow && css`
+  ${props => props.$navWindow && css`
     left: 0;
   `}
-  ${props => props.bg && css`
+  ${props => props.$bg && css`
     background-color: #222131;
   `}
   & button {

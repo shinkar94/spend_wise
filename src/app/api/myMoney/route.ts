@@ -25,6 +25,15 @@ export async function POST(req: Request){
    return NextResponse.json({...userData, token})
 }
 
+/**
+ * @swagger
+ * /api/myMoney:
+ *   get:
+ *     description: Returns the hello world
+ *     responses:
+ *       200:
+ *         description: Hello World!
+ */
 export async function GET(req: Request){
    const {searchParams} = new URL(req.url)
    const query = searchParams.get('q');

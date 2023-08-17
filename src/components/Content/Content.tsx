@@ -2,10 +2,6 @@ import React from 'react';
 import styled from "styled-components";
 import {HomePage} from "./HomePage/HomePage";
 
-import {Navigate, Route, Routes} from 'react-router-dom';
-import {Error404} from '../common/Error';
-import {Calendar} from "../Calendar/Calendar";
-
 type ContentType = {
     totalIncome: number
     totalOutcome: number
@@ -16,12 +12,7 @@ export const Content: React.FC<ContentType> = (props) => {
     return (
         <StContent>
             <Main>
-                <Routes>
-                    <Route path={'/homepage'} element={<HomePage totalIncome={totalIncome} totalOutcome={totalOutcome}/>}/>
-                    <Route path={'/calendar'} element={<Calendar/>}/>
-                    <Route path={'/'} element={<Navigate to={'/homepage'}/>}/>
-                    <Route path={'/*'} element={<Error404/>}/>
-                </Routes>
+                <HomePage totalIncome={totalIncome} totalOutcome={totalOutcome}/>
             </Main>
         </StContent>
     );

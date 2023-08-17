@@ -1,11 +1,13 @@
 'use client'
 
 import styled from "styled-components";
+import {Side_bar} from "@/components/side_bar/side_bar";
 
 
 export const Wrapper = () =>{
     return (
         <Wrapperr>
+            <Side_bar />
             <ContentWrapper>
                 <h1>Welcome to Spend Wise Application </h1>
             </ContentWrapper>

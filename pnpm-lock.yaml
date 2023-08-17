@@ -64,6 +64,9 @@ devDependencies:
   '@types/jsonwebtoken':
     specifier: ^9.0.2
     version: 9.0.2
+  '@types/prop-types':
+    specifier: ^15.7.5
+    version: 15.7.5
   '@types/swagger-jsdoc':
     specifier: ^6.0.1
     version: 6.0.1

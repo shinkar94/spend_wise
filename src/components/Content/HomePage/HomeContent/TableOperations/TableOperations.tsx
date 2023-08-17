@@ -1,10 +1,13 @@
 import React, {ChangeEvent, useState} from 'react';
-import {useAppSelector} from '../../../../../Hok/useAppSelector';
+
 import styled from 'styled-components';
 import filter from '../../../../../img/filter.svg'
 import {useDispatch} from 'react-redux';
-import {CardsReducerType} from '../../../../../Reducer/cardsReducer';
-import {AllState, WalletSelector} from '../../../../../selectors/Selectors';
+import {useAppSelector} from "@/hok/useAppSelector";
+import {AllState, WalletSelector} from "@/selectors/Selectors";
+import {CardsReducerType} from "@/reducer/cardsReducer";
+
+
 
 export const TableOperations = () => {
     const state = useAppSelector(AllState)
@@ -70,25 +73,6 @@ export const TableOperations = () => {
 
     return (
         <TableWrapper>
-            {
-                // tableMenu ?
-
-
-                // <div>
-                //     <div>начало периода</div>
-                //     <input type="date"
-                //            onChange={(e) => setDateRange({...dateRange, firstDate: e.currentTarget.value})}/>
-                //     <div>конец периода</div>
-                //     <input type="date"
-                //            onChange={(e) => setDateRange({...dateRange, secondDate: e.currentTarget.value})}/>
-                //     {/*<div onClick={() => setTableMenu(!tableMenu)}> . . .</div>*/}
-                // </div>
-
-
-                // :
-                // <div>Название таблицы
-                //     <div onClick={() => setTableMenu(!tableMenu)}>...</div></div>
-            }
             <Table>
                 <thead>
                 {
@@ -233,13 +217,6 @@ const Table = styled.table`
       flex-direction: column;
 
       select {
-          // background-image: url(${filter});
-        // background-repeat: no-repeat;
-        // background-position: center;
-        // background-size: 15px;
-        // background-color: transparent;
-        // border: none;
-        // cursor: pointer;
         appearance: none;
         background-color: #222131;
         color: white;
@@ -277,70 +254,7 @@ const Table = styled.table`
     }
   }
 `
-// const TableWrapper = styled.div`
-//   height: 350px;
-//   overflow: auto;
-//   min-width: 60%;
-//   border: 2px solid black;
-//   box-shadow: 2px 2px 10px black;
-//   border-radius: 10px;
-//   padding: 5px;
-//   background: #39394B;
-// `
-//
-// const Table = styled.table`
-//   width: 100%;
-//   border-collapse: separate;
-//   border-spacing: 0;
-//   text-align: center;
-//
-//    thead {
-//
-//     position: sticky;
-//     top: 0;
-//     background: #222131;
-//     color: aliceblue;
-//
-//      tr th {
-//       border: 1px solid white;
-//
-//        div {
-//         display: flex;
-//         justify-content: center;
-//         flex-direction: column;
-//
-//          select {
-//             // background-image: url(${filter});
-//           // background-repeat: no-repeat;
-//           // background-position: center;
-//           // background-size: 15px;
-//           // background-color: transparent;
-//           // border: none;
-//           // cursor: pointer;
-//           appearance: none;
-//           background-color: #222131;
-//           color: white;
-//           background-image: url(${filter});
-//           background-size: 20px;
-//           background-repeat: no-repeat;
-//           background-position: right;
-//           padding: 6px 24px 6px 0;
-//         }
-//       }
-//
-//     }
-//   }
-//
-//    tbody tr {
-//     height: 60px;
-//
-//      td {
-//       border-left: 1px solid rgba(0, 0, 0, 0.7);
-//       border-right: 1px solid rgba(0, 0, 0, 0.7);
-//     }
-//
-//   }
-// `
+
 
 
 

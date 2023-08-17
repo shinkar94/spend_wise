@@ -3,93 +3,140 @@ import {NextResponse} from "next/server";
 /**
  * @openapi
  * components:
- *  schemas:
- *   LoginUser:
- *    type: object
- *    required:
- *     - email
- *     - password
- *    properties:
- *     email:
- *      type: string
- *      default: test2023test@gmail.com
- *     password:
- *      type: string
- *      default: 112211
- *   LoginUserSuccess:
- *    type: object
- *    properties:
- *     id:
- *      type: string
- *     fullName:
- *      type: string
- *     email:
- *      type: string
- *     avatarUrl:
- *      type: string
- *     _id:
- *      type: string
- *     createdAt:
- *      type: string
- *     updatedAt:
- *      type: string
- *     __v:
- *      type: string
- *     token:
- *      type: string
- *   CreateUserInput:
- *    type: object
- *    required:
- *     - fullName
- *     - email
- *     - password
- *     - avatarUrl
- *    properties:
- *     fullName:
- *      type: string
- *      default: Roman Shinkarenko
- *     email:
- *      type: string
- *      default: test2023test@gmail.com
- *     password:
- *      type: string
- *      default: asdlasd123lkj1,n23.12,3l1k23j
- *     avatarUrl:
- *      type: string
- *      default: "https://cdn.pixabay.com/photo/2015/03/10/17/23/youtube-667451_1280.png"
- *   CreateUserRespons:
- *    type: object
- *    properties:
- *     fullName:
- *      type: string
- *     email:
- *      type: string
- *     avatarUrl:
- *      type: string
- *     _id:
- *      type: string
- *     createdAt:
- *      type: string
- *     updatedAt:
- *      type: string
- *     token:
- *      type: string
- *   CreateUserResponsBad:
- *    type: object
- *    properties:
- *     type:
- *      type: string
- *     msg:
- *      type: string
- *     path:
- *      type: string
- *     location:
- *      type: string
- *   CreateUserResponsError:
- *    type: object
- *    properties:
- *     message:
- *      type: string
+ *   schemas:
+ *     CreateCard:
+ *       type: object
+ *       required:
+ *         - name
+ *         - wallet_type
+ *         - currency
+ *         - nameCard
+ *         - sumCard
+ *       properties:
+ *         name:
+ *           type: string
+ *           default: test name
+ *         wallet_type:
+ *           type: string
+ *           default: card
+ *         currency:
+ *           type: string
+ *           default: BYN
+ *         nameCard:
+ *           type: string
+ *           default: MasterCard
+ *         sumCard:
+ *           type: number
+ *           default: 12000
+ *     CreateCardSuccess:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *         name:
+ *           type: string
+ *         wallet_type:
+ *           type: string
+ *         currency:
+ *           type: string
+ *         nameCard:
+ *           type: string
+ *         dataActive:
+ *           type: string
+ *         sumCard:
+ *           type: number
+ *         user:
+ *           type: string
+ *         createdAt:
+ *           type: string
+ *         updatedAt:
+ *           type: string
+ *     LoginUser:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *           default: test2023test@gmail.com
+ *         password:
+ *           type: string
+ *           default: 112211
+ *     LoginUserSuccess:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *         fullName:
+ *           type: string
+ *         email:
+ *           type: string
+ *         avatarUrl:
+ *           type: string
+ *         _id:
+ *           type: string
+ *         createdAt:
+ *           type: string
+ *         updatedAt:
+ *           type: string
+ *         __v:
+ *           type: string
+ *         token:
+ *           type: string
+ *     CreateUserInput:
+ *       type: object
+ *       required:
+ *         - fullName
+ *         - email
+ *         - password
+ *         - avatarUrl
+ *       properties:
+ *         fullName:
+ *           type: string
+ *           default: Roman Shinkarenko
+ *         email:
+ *           type: string
+ *           default: test2023test@gmail.com
+ *         password:
+ *           type: string
+ *           default: asdlasd123lkj1,n23.12,3l1k23j
+ *         avatarUrl:
+ *           type: string
+ *           default: "https://cdn.pixabay.com/photo/2015/03/10/17/23/youtube-667451_1280.png"
+ *     CreateUserRespons:
+ *       type: object
+ *       properties:
+ *         fullName:
+ *           type: string
+ *         email:
+ *           type: string
+ *         avatarUrl:
+ *           type: string
+ *         _id:
+ *           type: string
+ *         createdAt:
+ *           type: string
+ *         updatedAt:
+ *           type: string
+ *         token:
+ *           type: string
+ *     CreateUserResponsBad:
+ *       type: object
+ *       properties:
+ *         type:
+ *           type: string
+ *         msg:
+ *           type: string
+ *         path:
+ *           type: string
+ *         location:
+ *           type: string
+ *     CreateUserResponsError:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
  */
 
 /**

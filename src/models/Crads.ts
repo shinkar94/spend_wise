@@ -1,16 +1,25 @@
 import mongoose, {Schema} from "mongoose";
 
+interface IUser {
+    name: string;
+    lastName: string;
+}
+
+interface ICards extends Document {
+    name: string;
+    wallet_type: string;
+    currency: string;
+    nameCrd: string;
+    dataActive: Date;
+    sumCard: number;
+    user: IUser;
+}
 
 
 const CardsSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
-    },
-    idCard: {
-        type: Number,
-        required: true,
-        unique: true
     },
     wallet_type:{
         type: String,
@@ -32,17 +41,14 @@ const CardsSchema = new mongoose.Schema({
         required: true
     },
     user: {
-        type: Object,
-        name: {
-            type: String
+        type: {
+            name: String,
+            lastName: String,
         },
-        lastName: {
-            type: String
-        }
     },
 },{
     timestamps: true,
 });
 
-const Cards = mongoose.models.Cards || mongoose.model("Cards", CardsSchema)
+const Cards = mongoose.models.Cards || mongoose.model<ICards>("Cards", CardsSchema)
 export default Cards

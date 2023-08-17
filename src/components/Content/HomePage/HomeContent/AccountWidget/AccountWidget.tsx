@@ -8,6 +8,7 @@ import cardVisa from '../../../../../img/Card_Visa.svg'
 import cardMaster from '../../../../../img/Card_Mastercard.svg'
 import AmExpress  from '../../../../../img/American_Express.svg'
 import {useAppSelector} from "@/hok/useAppSelector";
+import Image from "next/image";
 
 
 
@@ -35,10 +36,10 @@ export const AccountWidget = () => {
                         <div className="logoCard">
                             {
                                 el.nameCard === 'MasterCard'
-                                    ? <img src={cardMaster}  alt={'imgCard'}/>
+                                    ? <Image src={cardMaster}  alt={'imgCard'}/>
                                     : el.nameCard === 'Visa'
-                                        ? <img src={cardVisa}  alt={'imgCard'}/>
-                                        : <img src ={AmExpress} alt={'imgCard'}/>
+                                        ? <Image src={cardVisa}  alt={'imgCard'}/>
+                                        : <Image src ={AmExpress} alt={'imgCard'}/>
                             }
                         </div>
                     </div>

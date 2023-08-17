@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import Image from "next/image";
 
 type JobApplicationType = {
     img: string
@@ -11,7 +12,7 @@ export const JobApplication:React.FC<JobApplicationType> = (props) => {
     const {img, value, name} = props
     return (
         <JobApp>
-            <img src={img} alt="img"/>
+            <Image src={img} alt="img"/>
             <div className="descriptions">
                 <h3>{value}</h3>
                 <p>{name}</p>

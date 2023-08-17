@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {HomeContent} from "./HomeContent/HomeContent";
 import {TopCard} from "../../TopCard/TopCard";
 import {useAppSelector} from "@/hok/useAppSelector";
 import {HelperState} from "@/selectors/Selectors";
@@ -19,7 +18,6 @@ export const HomePage: React.FC<HomePageType> = ({totalOutcome,totalIncome}) => 
     return (
         <HomePageWrapper>
             <TopCard totalOutcome={totalOutcome} totalIncome={totalIncome}/>
-            <HomeContent totalOutcome={totalOutcome}/>
             {(helper.statusAddBtn || helper.statusBarBtn) && <div className="shadowBlock"></div> }
         </HomePageWrapper>
     );

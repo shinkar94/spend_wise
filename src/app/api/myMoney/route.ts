@@ -135,6 +135,3 @@ export async function GET(req: Request){
  *             schema:
  *               $ref: '#/components/schemas/CreateUserResponsError'
  */
-export async function registerUser(req: Request){
-   return NextResponse.json({message: 'test message'})
-}

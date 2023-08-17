@@ -14,6 +14,7 @@
     "@types/react-dom": "18.2.7",
     "@types/styled-components": "^5.1.26",
     "bcrypt": "^5.1.0",
+    "encoding": "^0.1.13",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.16",
     "jsonwebtoken": "^9.0.1",

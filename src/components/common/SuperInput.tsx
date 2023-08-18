@@ -15,9 +15,6 @@ type InputPropsType = {
 export const SuperInput: React.FC<InputPropsType> = (props) => {
     const {setNewItem, value, type, newItem, property, placeholder, name, checked} = props
     const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        // setNewItem(type === 'number'
-        //     ? {...newItem, [property]: Number(e.currentTarget.value)}
-        //     : {...newItem, [property]: e.currentTarget.value})
         setNewItem({...newItem, [property]: e.currentTarget.value})
     }
     return (

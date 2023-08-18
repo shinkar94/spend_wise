@@ -13,7 +13,6 @@ type HomePageType = {
 
 export const HomePage: React.FC<HomePageType> = ({totalOutcome,totalIncome}) => {
     const helper = useAppSelector(HelperState)
-    // console.log(helper)
     return (
         <HomePageWrapper>
             <TopCard totalOutcome={totalOutcome} totalIncome={totalIncome}/>
@@ -23,7 +22,7 @@ export const HomePage: React.FC<HomePageType> = ({totalOutcome,totalIncome}) => 
 };
 
 const HomePageWrapper = styled.div`
-  padding: 0px 0;
+  padding: 0;
   .shadowBlock {
     position: fixed;
     top: 0;

@@ -19,7 +19,6 @@ export const Content: React.FC<ContentType> = (props) => {
 };
 
 const StContent = styled.div`
- 
   width: calc(100vw - 130px);
   background: #222131;
   padding:10px 50px;

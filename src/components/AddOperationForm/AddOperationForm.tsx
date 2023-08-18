@@ -44,7 +44,7 @@ export const AddOperationForm = () => {
         wallet: 'Wallet'
     })
     const [collapsedForm, setCollapsedForm] = useState<boolean>(false)
-    const cardState: CardsReducerType[] = hoks(state => state.wallets)
+    const cardState: CardsReducerType[] = useAppSelector(state => state.wallets)
     const walletName = cardState.map(el => ({value: el.name}))
 
     const onClickHandler = () => {

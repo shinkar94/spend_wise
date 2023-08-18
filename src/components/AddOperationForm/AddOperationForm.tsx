@@ -6,13 +6,13 @@ import {SuperButton} from '../common/SuperButton';
 import {Dispatch} from "redux";
 
 import {SuperSelect} from "../common/SuperSelect";
-import {useAppDispatch, useAppSelector} from "@/hok/useAppSelector";
+import {useAppDispatch, useAppSelector} from "@/hok/hoks";
 import {HelperState} from "@/selectors/Selectors";
 import {CardsReducerType} from "@/reducer/cardsReducer";
 import {addOperation} from "@/reducer/allStateReducer";
-import {onBlurAC} from "@/reducer/helperReducer";
 
 import {S} from './style'
+import {helperAction} from "@/reducer/helperReducer";
 
 
 export type OperationsTypeObject =
@@ -31,6 +31,7 @@ export const AddOperationForm = () => {
     const stateHelper = useAppSelector(HelperState)
     const statusBtn = stateHelper.statusAddBtn
     const dispatch: Dispatch = useAppDispatch()
+    const {onBlur} = helperAction
 
     const [newItem, setNewItem] = useState<OperationsTypeObject>({
         id: v1(),
@@ -43,7 +44,7 @@ export const AddOperationForm = () => {
         wallet: 'Wallet'
     })
     const [collapsedForm, setCollapsedForm] = useState<boolean>(false)
-    const cardState: CardsReducerType[] = useAppSelector(state => state.wallets)
+    const cardState: CardsReducerType[] = hoks(state => state.wallets)
     const walletName = cardState.map(el => ({value: el.name}))
 
     const onClickHandler = () => {
@@ -71,7 +72,7 @@ export const AddOperationForm = () => {
 
     const formDownClick = () => {
         setCollapsedForm(!collapsedForm)
-        dispatch(onBlurAC("addBtn"))
+        dispatch(onBlur({status: "addBtn"}))
     }
     const onChangeOption = (newOption: OperationsTypeObject) => {
         setNewItem(newOption)

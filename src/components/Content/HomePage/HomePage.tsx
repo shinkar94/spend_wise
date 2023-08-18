@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import {TopCard} from "../../TopCard/TopCard";
-import {useAppSelector} from "@/hok/useAppSelector";
+import {useAppSelector} from "@/hok/hoks";
 import {HelperState} from "@/selectors/Selectors";
-
 
 
 type HomePageType = {

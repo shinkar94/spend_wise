@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import {createSlice} from "@reduxjs/toolkit";
 
 export type CardsReducerType = {
     name: string
@@ -24,11 +25,16 @@ const initialState = [
     {name: 'Wallet',idCard: v1(),idUser: v1(),type:'bank',currency: 'RUB',nameCard: 'American_Express', numberCard: '2115-****-****-7822', dateActive: '04/23', sumCard: 1400, user:{name: 'Egor', lastName: 'Belozerov'}}
 ]
 
-export const cardsReducer = (state:CardsReducerType[] = initialState, action:any)=>{
-    switch (action.type) {
-        case 'SSS':{
-            return state
-        }
-        default: return state
+export const slice = createSlice({
+    name: 'card',
+    initialState,
+    reducers:{
+
+    },
+    extraReducers: builder => {
+
     }
-}
+})
+
+export const cardReducer = slice.reducer
+export const cardActions = slice.actions

@@ -4,9 +4,9 @@ import styled, {createGlobalStyle, css} from "styled-components";
 import {Side_bar} from "@/components/side_bar/side_bar";
 import {Content} from "@/components/Content/Content";
 import {HelperType} from "@/reducer/helperReducer";
-import {useAppSelector} from "@/hok/useAppSelector";
 import {AllState, HelperState} from "@/selectors/Selectors";
 import {AddOperationForm} from "@/components/AddOperationForm/AddOperationForm";
+import {useAppSelector} from "@/hok/hoks";
 
 const GlobalStyle = createGlobalStyle<{ helper: HelperType }>`
   body {
@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle<{ helper: HelperType }>`
   }
 `
 export const Wrapper = () =>{
-    useAppSelector(HelperState);
+    hoks(HelperState);
     const state = useAppSelector(AllState)
     const sum = (type: string) => {
         return state.filter(item =>

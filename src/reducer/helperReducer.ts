@@ -1,3 +1,5 @@
+import {createSlice} from "@reduxjs/toolkit";
+
 export type HelperType = {
     statusBarBtn: boolean
     statusAddBtn: boolean
@@ -8,29 +10,24 @@ const initialState: HelperType = {
     statusAddBtn: false,
 }
 
-export const helperReducer = (state = initialState, action: ActionType): HelperType => {
-    switch (action.type) {
-        case 'ONBLUR': {
+export const slice = createSlice({
+    name: 'helper',
+    initialState,
+    reducers: {
+        onBlur: (state, action)=>{
             const status = action.payload.status
-            return status === 'sideBarBtn'
-                ? {...state, statusBarBtn: !state.statusBarBtn}
-                : {...state, statusAddBtn: !state.statusAddBtn}
+            if(status === 'sideBarBtn'){
+                state.statusBarBtn = !state.statusBarBtn
+            }else{
+                state.statusAddBtn = !state.statusAddBtn
+            }
+
         }
-        default:
-            return state
+    },
+    extraReducers: builder => {
+
     }
-}
+})
 
-type ActionType = OnBlurACType
-
-
-type OnBlurACType = ReturnType<typeof onBlurAC>
-
-export const onBlurAC = (status: string) => {
-    return {
-        type: "ONBLUR",
-        payload: {
-            status
-        }
-    } as const
-}
+export const helperReducer = slice.reducer
+export const helperAction = slice.actions

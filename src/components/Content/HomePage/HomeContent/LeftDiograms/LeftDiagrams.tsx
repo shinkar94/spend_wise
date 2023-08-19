@@ -1,5 +1,5 @@
 import React from "react";
-export const LineChartWithBoundaries = () => {
+export const LeftDiagrams = () => {
     return (
         <>
             left diagram

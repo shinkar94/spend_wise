@@ -1,5 +1,5 @@
 import React, {FC, memo} from 'react';
-import {LineChartWithBoundaries} from "./LeftDiograms/LineChartWithBoundaries";
+import {LeftDiagrams} from "./LeftDiograms/LeftDiagrams";
 import {RightDiagrams} from "./RightDiagrams/RightDiagrams";
 import {S} from './homeContent.style'
 
@@ -13,7 +13,7 @@ export const HomeContent:FC<PropsType> = memo((props) => {
         <div>
             <S.TopContainer>
                 <div className="block graf">
-                    <LineChartWithBoundaries/>
+                    <LeftDiagrams/>
                 </div>
                 <div className="block analitic">
                     <RightDiagrams totalOutcome={totalOutcome}/>

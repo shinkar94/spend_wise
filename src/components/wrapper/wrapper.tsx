@@ -25,6 +25,8 @@ export const Wrapper = () =>{
             item.type === type).reduce((acc, el) =>
             acc + el.value, 0)
     }
+    const totalIncome = sum('income')
+    const totalOutcome = sum('outcome')
     return (
         <>
             <GlobalStyle helper={helper}/>
@@ -32,7 +34,7 @@ export const Wrapper = () =>{
                 <Side_bar />
                 <S.ContentWrapper>
                     <AddOperationForm />
-                    <Content totalIncome={sum('income')} totalOutcome={sum('outcome')}/>
+                    <Content totalIncome={totalIncome} totalOutcome={totalOutcome}/>
                 </S.ContentWrapper>
             </S.Wrapper>
         </>

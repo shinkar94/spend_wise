@@ -7,7 +7,7 @@ type PropsType = {
     totalOutcome: number
 }
 
-export const HomeContent:FC<PropsType> = memo((props) => {
+export const HomeContent:FC<PropsType> = (props) => {
     const {totalOutcome} = props
     return (
         <div>
@@ -21,4 +21,4 @@ export const HomeContent:FC<PropsType> = memo((props) => {
             </S.TopContainer>
         </div>
     );
-});
+};

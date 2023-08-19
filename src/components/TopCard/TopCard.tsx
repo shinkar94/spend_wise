@@ -1,18 +1,16 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {JobApplication} from "../Content/JobApplication/JobApplication";
 import walletIcon from "../../img/wallet.svg";
 import incomeIcon from "../../img/income.svg";
 import outcomeIcon from "../../img/outcome.svg";
 import pigIcon from "../../img/pig.svg";
 import styled from "styled-components";
+import {useSumTransactions} from "@/helper/sumResult";
 
 
-type PropsType = {
-    totalIncome: number
-    totalOutcome: number
-}
-export const TopCard: FC<PropsType> = (props) => {
-    const {totalIncome, totalOutcome} = props
+export const TopCard = () => {
+    const totalIncome = useSumTransactions('income')
+    const totalOutcome = useSumTransactions('outcome')
 
     return (
         <TopAnalyticsCard>

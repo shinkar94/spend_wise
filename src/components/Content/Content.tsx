@@ -2,17 +2,11 @@ import React from 'react';
 import styled from "styled-components";
 import {HomePage} from "./HomePage/HomePage";
 
-type ContentType = {
-    totalIncome: number
-    totalOutcome: number
-}
-
-export const Content: React.FC<ContentType> = (props) => {
-    const {totalIncome, totalOutcome} = props
+export const Content = () => {
     return (
         <StContent>
             <Main>
-                <HomePage totalIncome={totalIncome} totalOutcome={totalOutcome}/>
+                <HomePage />
             </Main>
         </StContent>
     );

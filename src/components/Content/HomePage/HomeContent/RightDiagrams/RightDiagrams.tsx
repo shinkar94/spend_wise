@@ -1,16 +1,14 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {S} from './rightDiagrams.style'
+import {useSumTransactions} from "@/helper/sumResult";
 
-type RightType = {
-    totalOutcome: number
-}
-
-export const RightDiagrams: FC<RightType> = ({totalOutcome}) => {
-
+export const RightDiagrams = () => {
+    const outcome = useSumTransactions('outcome')
     return (
         <S.DiagramsWrapper>
             <div>
                 <h3>Аналитика раходов</h3>
+                <p>outcome = {outcome}</p>
             </div>
             <S.Diagram>
 

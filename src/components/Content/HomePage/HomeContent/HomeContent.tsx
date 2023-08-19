@@ -1,14 +1,9 @@
-import React, {FC, memo} from 'react';
+import React from 'react';
 import {LeftDiagrams} from "./LeftDiograms/LeftDiagrams";
 import {RightDiagrams} from "./RightDiagrams/RightDiagrams";
 import {S} from './homeContent.style'
 
-type PropsType = {
-    totalOutcome: number
-}
-
-export const HomeContent:FC<PropsType> = memo((props) => {
-    const {totalOutcome} = props
+export const HomeContent = () => {
     return (
         <div>
             <S.TopContainer>
@@ -16,9 +11,9 @@ export const HomeContent:FC<PropsType> = memo((props) => {
                     <LeftDiagrams/>
                 </div>
                 <div className="block analitic">
-                    <RightDiagrams totalOutcome={totalOutcome}/>
+                    <RightDiagrams />
                 </div>
             </S.TopContainer>
         </div>
     );
-});
+};

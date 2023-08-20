@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/chart.js": "^2.9.37",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/prop-types": "^15.7.5",
     "@types/swagger-ui-react": "^4.18.0",

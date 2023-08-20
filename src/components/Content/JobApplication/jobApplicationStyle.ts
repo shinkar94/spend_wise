@@ -17,6 +17,7 @@ const JobApp = styled.div`
     }
     & img{
       width: 40px;
+      height: auto;
     }
 `
 

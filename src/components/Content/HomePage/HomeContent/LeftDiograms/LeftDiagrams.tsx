@@ -1,6 +1,5 @@
 import React, {useEffect, useRef} from "react";
 import {useAppSelector} from "@/hok/hoks";
-import {DataType} from "csstype";
 import {ChartOptions, LineControllerDatasetOptions, registerables} from "chart.js";
 import {Chart} from "chart.js/auto";
 Chart.register(...registerables);

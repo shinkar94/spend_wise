@@ -22,13 +22,13 @@ import Cards from "@/models/Crads";
  *               $ref: '#/components/schemas/CreateCardSuccess'
  */
 export async function POST(req: Request){
-    const {name, sumCard, dataActive,user, nameCrd,currency,wallet_type} = await req.json()
+    const {name, sumCard, dataActive,user, nameCard,currency,wallet_type} = await req.json()
     const doc = new Cards({
         name: name,
         sumCard: sumCard,
         dataActive: dataActive,
         user: user,
-        nameCrd: nameCrd,
+        nameCard: nameCard,
         currency: currency,
         wallet_type: wallet_type
     })

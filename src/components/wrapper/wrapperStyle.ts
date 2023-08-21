@@ -9,7 +9,6 @@ const Wrapper = styled.div`
 `
 
 const ContentWrapper = styled.div`
-
 `
 
 export const S = {Wrapper, ContentWrapper}

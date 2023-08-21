@@ -8,10 +8,12 @@ import {NextResponse} from "next/server";
  *       type: object
  *       required:
  *         - name
- *         - wallet_type
- *         - currency
- *         - nameCard
  *         - sumCard
+ *         - dataActive
+ *         - user
+ *         - nameCard
+ *         - currency
+ *         - wallet_type
  *       properties:
  *         name:
  *           type: string
@@ -19,6 +21,15 @@ import {NextResponse} from "next/server";
  *         wallet_type:
  *           type: string
  *           default: card
+ *         user:
+ *           type: object
+ *           properties:
+ *            name:
+ *             type: string
+ *             default: Roman
+ *            lastName:
+ *             type: string
+ *             default: Shinkarenko
  *         currency:
  *           type: string
  *           default: BYN
@@ -46,7 +57,12 @@ import {NextResponse} from "next/server";
  *         sumCard:
  *           type: number
  *         user:
- *           type: string
+ *           type: object
+ *           properties:
+ *            name:
+ *             type: string
+ *            lastName:
+ *             type: string
  *         createdAt:
  *           type: string
  *         updatedAt:

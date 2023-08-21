@@ -1,4 +1,4 @@
-import mongoose, {Schema} from "mongoose";
+import mongoose from "mongoose";
 
 interface IUser {
     name: string;
@@ -9,13 +9,16 @@ interface ICards extends Document {
     name: string;
     wallet_type: string;
     currency: string;
-    nameCrd: string;
+    nameCard: string;
     dataActive: Date;
     sumCard: number;
     user: IUser;
 }
 
-
+const userSchema = new mongoose.Schema({
+    name: String,
+    lastName: String,
+});
 const CardsSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -29,7 +32,7 @@ const CardsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    nameCrd: {
+    nameCard: {
         type: String,
         required: true
     },
@@ -41,10 +44,8 @@ const CardsSchema = new mongoose.Schema({
         required: true
     },
     user: {
-        type: {
-            name: String,
-            lastName: String,
-        },
+        type: userSchema,
+        required: true
     },
 },{
     timestamps: true,

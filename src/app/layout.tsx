@@ -4,7 +4,7 @@ import {Inter} from 'next/font/google'
 
 import {ReactNode} from "react";
 import StyledComponentsRegistry from "@/app/lib/registry";
-// import {Side_bar} from "@/components/side_bar/side_bar";
+import {Side_bar} from "@/components/side_bar/side_bar";
 
 
 const inter = Inter({subsets: ['latin']})
@@ -16,10 +16,11 @@ export const metadata: Metadata = {
 interface RootLayoutProps {
     children: ReactNode;
 }
-export default function RootLayout({children,}: RootLayoutProps) {
+export default function RootLayout({children}: RootLayoutProps) {
     return (
         <html lang="en">
         <body className={inter.className}>
+            <StyledComponentsRegistry><Side_bar /></StyledComponentsRegistry>
             <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
         </body>
         </html>

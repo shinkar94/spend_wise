@@ -1,7 +1,6 @@
 'use client'
 
 import {createGlobalStyle, css} from "styled-components";
-import {Side_bar} from "@/components/side_bar/side_bar";
 import {Content} from "@/components/Content/Content";
 import {HelperType} from "@/reducer/helperReducer";
 import {HelperState} from "@/selectors/Selectors";
@@ -24,7 +23,6 @@ export const Wrapper = () =>{
         <>
             <GlobalStyle helper={helper}/>
             <S.Wrapper>
-                <Side_bar />
                 <S.ContentWrapper>
                     <AddOperationForm />
                     <Content />

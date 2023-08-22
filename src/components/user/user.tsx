@@ -10,10 +10,11 @@ const sigInSchema = z.object({
     password: z.string().min(3)
 }).nonstrict();
 type SignInFormShem = z.infer<typeof sigInSchema>
-type PropsType = {
-    onSubmit: (data: SignInFormShem) => void
-}
-export const UserPage:FC<PropsType> = ({onSubmit}) =>{
+// type PropsType = {
+//     onSubmit: (data: SignInFormShem) => void
+// }
+// export const UserPage:FC<PropsType> = ({onSubmit}) =>{
+export const UserPage = () =>{
     // const {control,handleSubmit} = useForm({resolver: zodResolver(sigInSchema)})
     // const handleSubmitForm = handleSubmit(onSubmit)
     return(

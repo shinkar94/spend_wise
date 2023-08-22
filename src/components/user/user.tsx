@@ -1,40 +1,34 @@
 import Image from "next/image";
+import {z} from 'zod';
+import {FC} from "react";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 
-export const UserPage = () =>{
+const sigInSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(3)
+}).nonstrict();
+type SignInFormShem = z.infer<typeof sigInSchema>
+type PropsType = {
+    onSubmit: (data: SignInFormShem) => void
+}
+export const UserPage:FC<PropsType> = ({onSubmit}) =>{
+    // const {control,handleSubmit} = useForm({resolver: zodResolver(sigInSchema)})
+    // const handleSubmitForm = handleSubmit(onSubmit)
     return(
         <>
-            <div className={'infoUser'}>
-                <div className={'blockName'}>
-                    <Image src='' alt={'avatar'} />
-                    <p>Roman</p>
-                    <p>Shinkarenko</p>
-                    <p>test@gmail.com</p>
-                </div>
-                <div className={'blockCard'}>
-                    <div className={'card'}>
-                        this carusel card and button change card
-                    </div>
-                </div>
-            </div>
             <div>
                 <div className={'blockAvatar'}>
                     <Image src='' alt={'avatar'} />
                 </div>
-                <form action="#">
+                {/*<form onSubmit={handleSubmitForm}>*/}
+                <form >
                     <p>Avtor</p>
-                    <input type="text" placeholder={'login'}/>
-                    <input type="text" placeholder={'password'}/>
+                    <input name={'email'} type={'email'}  placeholder={'login'}/>
+                    <input name={'password'} type={'password'}  placeholder={'password'}/>
                     <button>Avtarization</button>
-                </form>
-            </div>
-            <div>
-                <form action="#">
-                    <p>Register</p>
-                    <input type="text" placeholder={'login'}/>
-                    <input type="text" placeholder={'password'}/>
-                    <input type="text" placeholder={'password'}/>
-                    <button>Register</button>
+                    <button>Exit</button>
                 </form>
             </div>
         </>

@@ -6,13 +6,16 @@ import {helperReducer} from "@/reducer/helperReducer";
 import {cardReducer} from "@/reducer/cardsReducer";
 
 import {configureStore} from '@reduxjs/toolkit'
+import {baseApi} from "@/app/api-query/base-api";
 
 export const store = configureStore({
     reducer: {
+        [baseApi.reducerPath]: baseApi.reducer,
         allState: allStateReducer,
         helper: helperReducer,
-        wallets: cardReducer
-    }
+        wallets: cardReducer,
+    },
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(baseApi.middleware),
 })
 
 export type AppDispatch = typeof store.dispatch;

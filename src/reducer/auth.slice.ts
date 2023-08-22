@@ -15,3 +15,6 @@ export const slice = createSlice({
 
     }
 })
+
+export const AuthReducer = slice.reducer
+export const AuthAction = slice.actions

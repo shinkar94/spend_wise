@@ -1,35 +1,36 @@
-import Image from "next/image";
+'use client'
 import {z} from 'zod';
-import {FC} from "react";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {useLoginMutation} from "@/app/api-query/api-query";
 
 
-const sigInSchema = z.object({
+const signInSchema = z.object({
     email: z.string().email(),
     password: z.string().min(3)
-}).nonstrict();
-type SignInFormShem = z.infer<typeof sigInSchema>
-// type PropsType = {
-//     onSubmit: (data: SignInFormShem) => void
-// }
-// export const UserPage:FC<PropsType> = ({onSubmit}) =>{
+});
+type SignInFormShem = z.infer<typeof signInSchema>
+
+
 export const UserPage = () =>{
-    // const {control,handleSubmit} = useForm({resolver: zodResolver(sigInSchema)})
-    // const handleSubmitForm = handleSubmit(onSubmit)
+    const [login] = useLoginMutation()
+    const onSubmit = (values: SignInFormShem) => {
+        debugger
+        login(values)
+    }
+
+    const {register,handleSubmit} = useForm<SignInFormShem>({resolver: zodResolver(signInSchema)})
+    const handleSubmitForm = handleSubmit(onSubmit)
     return(
         <>
             <div>
                 <div className={'blockAvatar'}>
-                    <Image src='' alt={'avatar'} />
+
                 </div>
-                {/*<form onSubmit={handleSubmitForm}>*/}
-                <form >
-                    <p>Avtor</p>
-                    <input name={'email'} type={'email'}  placeholder={'login'}/>
-                    <input name={'password'} type={'password'}  placeholder={'password'}/>
-                    <button>Avtarization</button>
-                    <button>Exit</button>
+                <form onSubmit={handleSubmitForm}>
+                    <input {...register('email')} type={'email'}  placeholder={'login'}/>
+                    <input {...register('password')} type={'password'}  placeholder={'password'}/>
+                    <button>send</button>
                 </form>
             </div>
         </>

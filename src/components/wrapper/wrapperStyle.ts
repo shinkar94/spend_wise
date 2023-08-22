@@ -2,10 +2,9 @@ import styled from "styled-components";
 
 
 const Wrapper = styled.div`
-  height: 100vh;
+  height: 100%;
   display: flex;
-  margin-left: 30px;
-  margin-right: 30px;
+  background: #222130;
 `
 
 const ContentWrapper = styled.div`

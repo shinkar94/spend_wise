@@ -1,12 +1,12 @@
 'use client'
-import {UserPage} from "@/components/user/user";
 import {Provider} from "react-redux";
 import {store} from "@/store/store";
+import {SignInPage} from "@/components/user/signIn/signIn";
 
-export default function User(){
+export default function SignIn(){
     return(
         <Provider store={store}>
-            <UserPage />
+            <SignInPage />
         </Provider>
     )
 }

@@ -7,10 +7,12 @@ import {cardReducer} from "@/reducer/cardsReducer";
 
 import {configureStore} from '@reduxjs/toolkit'
 import {baseApi} from "@/app/api-query/base-api";
+import {authReducer} from "@/reducer/auth.slice";
 
 export const store = configureStore({
     reducer: {
         [baseApi.reducerPath]: baseApi.reducer,
+        auth: authReducer,
         allState: allStateReducer,
         helper: helperReducer,
         wallets: cardReducer,

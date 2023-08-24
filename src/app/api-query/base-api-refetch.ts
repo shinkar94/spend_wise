@@ -1,7 +1,8 @@
 import {BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {Mutex} from 'async-mutex'
 
-const baseUrl = process.env.DOMAIN ? process.env.DOMAIN : 'https://spend-wise-seven.vercel.app'
+const baseUrl = process.env.NEXT_PUBLIC_DOMAIN ? 'http://localhost:3000' : 'https://spend-wise-seven.vercel.app'
+
 
 // Create a new mutex
 const mutex = new Mutex()

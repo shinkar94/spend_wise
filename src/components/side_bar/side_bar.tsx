@@ -2,6 +2,8 @@
 import {Navigation} from "@/components/side_bar/navigation";
 import {useState} from "react";
 import styled, {css} from "styled-components";
+import {Provider} from "react-redux";
+import {store} from "@/store/store";
 
 const navItems = [
     {label: 'User', href: "/user"},
@@ -23,11 +25,12 @@ export const Side_bar =()=>{
         // dispatch(onBlurAC('sideBarBtn'))
     }
     return(
-        <Nav $navWindow={navWindow} $bg={bgNav}>
-            <Navigation navLinks={navItems} />
-            <button  onClick={onClickHandler}>{navWindow ? `<<` : `>>`}</button>
-        </Nav>
-
+            <Provider store={store}>
+                <Nav $navWindow={navWindow} $bg={bgNav}>
+                    <Navigation navLinks={navItems} />
+                    <button  onClick={onClickHandler}>{navWindow ? `<<` : `>>`}</button>
+                </Nav>
+            </Provider>
     )
 }
 type NavType = {

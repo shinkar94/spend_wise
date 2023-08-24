@@ -5,6 +5,8 @@ import Link from "next/link";
 import styled from "styled-components";
 import Image from "next/image";
 import defaultImgUser from './../../img/default-user.svg'
+import {useAppSelector} from "@/hok/hoks";
+import {authSelectors} from "@/selectors/Selectors";
 
 type NavLink = {
     label: string
@@ -15,6 +17,7 @@ type Props = {
     navLinks: NavLink[]
 }
 export const Navigation = ({navLinks}: Props) => {
+    const authData = useAppSelector(authSelectors)
     const pathname = usePathname()
     return (
         <>
@@ -23,7 +26,9 @@ export const Navigation = ({navLinks}: Props) => {
                 return (
                     link.label === 'User'
                         ? <UserBlockLink key={link.label}>
-                            <Link href={link.href} className={isActive ? 'active' : ''}><Image src={defaultImgUser} alt={'user-img'} />{link.label}</Link>
+                            <Link href={link.href} className={isActive ? 'active' : ''}><Image src={defaultImgUser} alt={'user-img'} />{
+                                authData.fullName ? authData.fullName : link.label
+                            }</Link>
                             <div className={'link-user'}>
                                 <Link href={'user/signIn'}>signIn</Link>/<Link href={'user/signUp'}>signUp</Link>
                             </div>

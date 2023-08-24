@@ -22,10 +22,10 @@ export const Navigation = ({navLinks}: Props) => {
                 const isActive = pathname === link.href
                 return (
                     link.label === 'User'
-                        ? <UserBlockLink>
-                            <Link href={link.href} key={link.label} className={isActive ? 'active' : ''}><Image src={defaultImgUser} alt={'user-img'} />{link.label}</Link>
+                        ? <UserBlockLink key={link.label}>
+                            <Link href={link.href} className={isActive ? 'active' : ''}><Image src={defaultImgUser} alt={'user-img'} />{link.label}</Link>
                             <div className={'link-user'}>
-                                <Link href={'user/signIn'} key={index}>signIn</Link>/<Link href={'user/signUp'} key={index}>signUp</Link>
+                                <Link href={'user/signIn'}>signIn</Link>/<Link href={'user/signUp'}>signUp</Link>
                             </div>
                         </UserBlockLink>
                         :

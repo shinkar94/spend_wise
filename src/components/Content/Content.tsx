@@ -7,6 +7,7 @@ export const Content = () => {
         <StContent>
             <Main>
                 <HomePage />
+                Test#1
             </Main>
         </StContent>
     );

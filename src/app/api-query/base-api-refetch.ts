@@ -1,5 +1,5 @@
-import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query'
-import { Mutex } from 'async-mutex'
+import {BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from '@reduxjs/toolkit/query'
+import {Mutex} from 'async-mutex'
 
 const baseUrl = process.env.DOMAIN ? process.env.DOMAIN : 'http://localhost:3000/'
 

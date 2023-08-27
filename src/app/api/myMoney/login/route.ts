@@ -3,6 +3,7 @@ import User from "@/models/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {NextResponse} from "next/server";
+import cookie from "cookie";
 
 /**
  * @openapi
@@ -43,5 +44,16 @@ export async function POST(req: Request){
     })
     const {passwordHash, ...userData} = user._doc;
 
-    return NextResponse.json({...userData, token})
-}
+    const cookieOptions = {
+        httpOnly: true, // Кука не будет доступна через JavaScript
+        maxAge: 30 * 24 * 60 * 60 * 1000, // Время жизни куки в миллисекундах (30 дней)
+    };
+
+    const TokenCookie = cookie.serialize('Token', token, cookieOptions);
+
+    return NextResponse.json({...userData, token},{
+        headers: {
+            'Set-Cookie': TokenCookie
+        }
+    })
+    }

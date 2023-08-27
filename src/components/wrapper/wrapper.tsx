@@ -18,7 +18,6 @@ const GlobalStyle = createGlobalStyle<{ helper: HelperType }>`
 `
 export const Wrapper = () =>{
     const helper = useAppSelector(HelperState);
-
     return (
         <>
             <GlobalStyle helper={helper}/>

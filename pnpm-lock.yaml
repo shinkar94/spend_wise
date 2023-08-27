@@ -11,6 +11,9 @@ dependencies:
   '@reduxjs/toolkit':
     specifier: ^1.9.5
     version: 1.9.5(react-redux@8.1.2)(react@18.2.0)
+  '@types/cookie':
+    specifier: ^0.5.1
+    version: 0.5.1
   '@types/react':
     specifier: 18.2.20
     version: 18.2.20
@@ -32,6 +35,9 @@ dependencies:
   chart.js:
     specifier: ^4.3.3
     version: 4.3.3
+  cookie:
+    specifier: ^0.5.0
+    version: 0.5.0
   encoding:
     specifier: ^0.1.13
     version: 0.1.13
@@ -2093,6 +2099,10 @@ packages:
     dependencies:
       moment: 2.29.4
     dev: true
+
+  /@types/cookie@0.5.1:
+    resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
+    dev: false
 
   /@types/hast@2.3.5:
     resolution: {integrity: sha512-SvQi0L/lNpThgPoleH53cdjB3y9zpLlVjRbqB3rH8hx1jiRSBGAhyjV3H+URFjNVRqt2EdYNrbZE5IsGlNfpRg==}

@@ -1,4 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
+export type ResponseType = {
+    data: UserType
+}
 export type UserType = {
     avatarUrl: string;
     createdAt: string;

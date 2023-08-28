@@ -2,6 +2,7 @@ import {NextResponse} from "next/server";
 import { cookies } from 'next/headers'
 import jwt, {JwtPayload} from "jsonwebtoken";
 import User from "@/models/User";
+import Token from "@/models/token-model";
 
 /**
  * @openapi
@@ -167,12 +168,13 @@ import User from "@/models/User";
  *       200:
  *         description: Hello World!
  */
+
 export async function GET(req: Request){
    const {searchParams} = new URL(req.url)
    const token = searchParams.get('token');
    const cookieStore = cookies()
    const refreshToken = cookieStore.get('refreshToken')
-   console.log(token)
+   console.log(refreshToken)
    function validateAccessToken(token:string){
       try {
          const tokenData = process.env.NEXT_JWT_ACCESS_SECRET && jwt.verify(token, process.env.NEXT_JWT_ACCESS_SECRET) as JwtPayload & { _id: string };
@@ -181,13 +183,43 @@ export async function GET(req: Request){
          return null
       }
    }
+   function validateRefreshToken(token: string){
+      try {
+         const tokenData = process.env.NEXT_JWT_REFRESH_SECRET && jwt.verify(token, process.env.NEXT_JWT_REFRESH_SECRET) as JwtPayload & { _id: string }
+         console.log("VALIDATE-REFRESH",tokenData)
+         return tokenData
+      }catch (e) {
+         console.log(e)
+         console.log('INVALID-REFRESH-TOKEN')
+         console.log('RECONECT-ON-REGISTER')
+      }
+   }
+   async function refreshData(id: string){
+      try {
+         const tokenData = await Token.findOne({_id: id})
+         console.log('TOKEN-DATA', tokenData)
+      }catch (e) {
+         console.log(e)
+      }
+   }
    let data = {}
    if(token){
       const accessToken = validateAccessToken(token)
       console.log("TOKEN-STATUS", accessToken)
       if(accessToken){
+         console.log('OPEN-IN-DATA')
          const userData = await User.findOne({_id: accessToken._id})
          data = {...data, userData, token}
+      }else{
+         if(refreshToken){
+            const newRefreshToken = validateRefreshToken(refreshToken.value)
+            console.log("REFRESHTOKEN-STATUS", newRefreshToken)
+            if(newRefreshToken){
+               refreshData(newRefreshToken._id)
+            }
+         }else{
+            console.log("REFRESHTOKEN-NOT-FOUND")
+         }
       }
    }
 

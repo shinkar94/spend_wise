@@ -1,4 +1,7 @@
 import {NextResponse} from "next/server";
+import { cookies } from 'next/headers'
+import jwt, {JwtPayload} from "jsonwebtoken";
+import User from "@/models/User";
 
 /**
  * @openapi
@@ -166,11 +169,31 @@ import {NextResponse} from "next/server";
  */
 export async function GET(req: Request){
    const {searchParams} = new URL(req.url)
-   const query = searchParams.get('q');
-   let currentPosts = {message: 'test'}
-   if(query){
-      currentPosts = {message: `test query  = ${query}`}
+   const token = searchParams.get('token');
+   const cookieStore = cookies()
+   const refreshToken = cookieStore.get('refreshToken')
+   console.log(token)
+   function validateAccessToken(token:string){
+      try {
+         const tokenData = process.env.NEXT_JWT_ACCESS_SECRET && jwt.verify(token, process.env.NEXT_JWT_ACCESS_SECRET) as JwtPayload & { _id: string };
+         return tokenData
+      }catch (e) {
+         return null
+      }
    }
-   return NextResponse.json(currentPosts)
+   let data = {}
+   if(token){
+      const accessToken = validateAccessToken(token)
+      console.log("TOKEN-STATUS", accessToken)
+      if(accessToken){
+         const userData = await User.findOne({_id: accessToken._id})
+         data = {...data, userData, token}
+      }
+   }
+
+
+   console.log(cookies)
+   console.log(refreshToken?.value)
+   return NextResponse.json(data)
 }
 

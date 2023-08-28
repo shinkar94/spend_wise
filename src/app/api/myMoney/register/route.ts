@@ -4,6 +4,7 @@ import User from "@/models/User";
 import jwt from "jsonwebtoken";
 import Token from "@/models/token-model";
 import cookie from 'cookie';
+import mongoose from "mongoose";
 
 /**
  * @openapi
@@ -60,11 +61,18 @@ export async function POST(req: Request){
         const refreshToken = process.env.NEXT_JWT_REFRESH_SECRET && jwt.sign({_id: user._id}, process.env.NEXT_JWT_REFRESH_SECRET, {expiresIn: '30d'})
         const token = process.env.NEXT_JWT_ACCESS_SECRET && jwt.sign({_id: user._id,}, process.env.NEXT_JWT_ACCESS_SECRET,{expiresIn: '30m',})
 
-        const newRefreshToken = new Token({
-            user: user._id,
-            refreshToken: refreshToken
-        })
-        await newRefreshToken.save()
+        const tokenDB = await Token.findOne({user: new mongoose.Types.ObjectId(user._id)})
+
+        if (tokenDB) {
+            tokenDB.refreshToken = refreshToken;
+            await tokenDB.save();
+        } else {
+            const newRefreshToken = new Token({
+                user: user._id,
+                refreshToken: refreshToken
+            })
+            await newRefreshToken.save()
+        }
 
         const cookieOptions = {
             httpOnly: true, // Кука не будет доступна через JavaScript

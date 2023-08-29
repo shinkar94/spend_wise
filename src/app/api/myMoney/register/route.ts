@@ -1,10 +1,10 @@
 import {NextResponse} from "next/server";
 import bcrypt from "bcrypt";
 import User from "@/models/User";
-import jwt from "jsonwebtoken";
 import Token from "@/models/token-model";
-import cookie from 'cookie';
 import mongoose from "mongoose";
+import {userDTO} from "@/app/service/dto/dto";
+import {generateToken} from "@/app/service/generate-token/generateToken";
 
 /**
  * @openapi
@@ -39,6 +39,8 @@ import mongoose from "mongoose";
  *             schema:
  *               $ref: '#/components/schemas/CreateUserResponsError'
  */
+
+
 export async function POST(req: Request){
     try {
         const {email,password, fullName, avatarUrl } = await req.json()
@@ -46,7 +48,7 @@ export async function POST(req: Request){
         const hash = await bcrypt.hash(password, salt)
         const candidate = await User.findOne({email})
         if(candidate){
-            console.log(`Пользователь с таким email уже существует!!`)
+            return NextResponse.json({messages: `Пользователь с таким email уже существует!!`})
         }
 
         const doc = new User({
@@ -57,10 +59,9 @@ export async function POST(req: Request){
         })
 
         const user = await doc.save()
-
-        const refreshToken = process.env.NEXT_JWT_REFRESH_SECRET && jwt.sign({_id: user._id}, process.env.NEXT_JWT_REFRESH_SECRET, {expiresIn: '30d'})
-        const token = process.env.NEXT_JWT_ACCESS_SECRET && jwt.sign({_id: user._id,}, process.env.NEXT_JWT_ACCESS_SECRET,{expiresIn: '30m',})
-
+        const userDto = userDTO(user)
+        const tokens = generateToken(userDto)
+        const {refreshToken,token} = tokens
         const tokenDB = await Token.findOne({user: new mongoose.Types.ObjectId(user._id)})
 
         if (tokenDB) {
@@ -68,29 +69,15 @@ export async function POST(req: Request){
             await tokenDB.save();
         } else {
             const newRefreshToken = new Token({
-                user: user._id,
+                user: userDto.id,
                 refreshToken: refreshToken
             })
             await newRefreshToken.save()
         }
 
-        const cookieOptions = {
-            httpOnly: true, // Кука не будет доступна через JavaScript
-            maxAge: 30 * 24 * 60 * 60 * 1000, // Время жизни куки в миллисекундах (30 дней)
-        };
-
-        const refreshTokenCookie = refreshToken && cookie.serialize('refreshToken', refreshToken, cookieOptions);
-        let headers = {}
-        if(refreshTokenCookie){
-            headers = {'Set-Cookie': refreshTokenCookie}
-        }
-
         const {passwordHash,...userData} = user._doc
-        return NextResponse.json({ ...userData, token }, {
-            headers: headers
-        });
+        return NextResponse.json({ ...userData, token });
     }catch (e) {
-        console.log('OPEN ERROR')
         return NextResponse.json({messages: e})
     }
 }

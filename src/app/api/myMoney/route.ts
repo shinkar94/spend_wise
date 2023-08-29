@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import jwt, {JwtPayload} from "jsonwebtoken";
 import User from "@/models/User";
 import Token from "@/models/token-model";
+import {ValidateAccessToken} from "@/app/service/validate/validate-token/validateAccessToken";
 
 /**
  * @openapi
@@ -170,19 +171,9 @@ import Token from "@/models/token-model";
  */
 
 export async function GET(req: Request){
-   const {searchParams} = new URL(req.url)
-   const token = searchParams.get('token');
    const cookieStore = cookies()
-   const refreshToken = cookieStore.get('refreshToken')
-   console.log(refreshToken)
-   function validateAccessToken(token:string){
-      try {
-         const tokenData = process.env.NEXT_JWT_ACCESS_SECRET && jwt.verify(token, process.env.NEXT_JWT_ACCESS_SECRET) as JwtPayload & { _id: string };
-         return tokenData
-      }catch (e) {
-         return null
-      }
-   }
+   const accessToken = cookieStore.get('accessToken')
+   console.log(accessToken)
    function validateRefreshToken(token: string){
       try {
          const tokenData = process.env.NEXT_JWT_REFRESH_SECRET && jwt.verify(token, process.env.NEXT_JWT_REFRESH_SECRET) as JwtPayload & { _id: string }
@@ -202,30 +193,40 @@ export async function GET(req: Request){
          console.log(e)
       }
    }
-   let data = {}
-   if(token){
-      const accessToken = validateAccessToken(token)
-      console.log("TOKEN-STATUS", accessToken)
-      if(accessToken){
-         console.log('OPEN-IN-DATA')
-         const userData = await User.findOne({_id: accessToken._id})
-         data = {...data, userData, token}
-      }else{
-         if(refreshToken){
-            const newRefreshToken = validateRefreshToken(refreshToken.value)
-            console.log("REFRESHTOKEN-STATUS", newRefreshToken)
-            if(newRefreshToken){
-               refreshData(newRefreshToken._id)
-            }
-         }else{
-            console.log("REFRESHTOKEN-NOT-FOUND")
-         }
+
+   async function getRefreshToken(id: string){
+      try {
+         const tokenData = await Token.findOne({_id: id})
+         console.log('TOKEN-REFRESH-DATA', tokenData)
+         return tokenData
+      }catch (e) {
+         return null
       }
    }
 
 
-   console.log(cookies)
-   console.log(refreshToken?.value)
+   let data = {}
+   if(accessToken){
+      const checkToken = ValidateAccessToken(accessToken.value)
+      console.log("TOKEN-STATUS", checkToken)
+      if(checkToken){
+         console.log('OPEN-IN-DATA')
+         const userData = await User.findOne({_id: checkToken.id})
+         data = {...data, userData, checkToken}
+      }else{
+         // const tokenData = getRefreshToken(accessToken.id)
+         // if(refreshToken){
+         //    const newRefreshToken = validateRefreshToken(refreshToken.value)
+         //    console.log("REFRESHTOKEN-STATUS", newRefreshToken)
+         //    if(newRefreshToken){
+         //       refreshData(newRefreshToken._id)
+         //    }
+         // }else{
+         //    console.log("REFRESHTOKEN-NOT-FOUND")
+         // }
+      }
+   }
+
    return NextResponse.json(data)
 }
 

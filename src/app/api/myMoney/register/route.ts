@@ -1,10 +1,9 @@
 import {NextResponse} from "next/server";
 import bcrypt from "bcrypt";
 import User from "@/models/User";
-import Token from "@/models/token-model";
-import mongoose from "mongoose";
 import {userDTO} from "@/app/service/dto/dto";
 import {generateToken} from "@/app/service/generate-token/generateToken";
+import {SaveRefreshToken} from "@/app/service/save-token/saveRefreshToken";
 
 /**
  * @openapi
@@ -62,18 +61,7 @@ export async function POST(req: Request){
         const userDto = userDTO(user)
         const tokens = generateToken(userDto)
         const {refreshToken,token} = tokens
-        const tokenDB = await Token.findOne({user: new mongoose.Types.ObjectId(user._id)})
-
-        if (tokenDB) {
-            tokenDB.refreshToken = refreshToken;
-            await tokenDB.save();
-        } else {
-            const newRefreshToken = new Token({
-                user: userDto.id,
-                refreshToken: refreshToken
-            })
-            await newRefreshToken.save()
-        }
+        await SaveRefreshToken(user._id, refreshToken)
 
         const {passwordHash,...userData} = user._doc
         return NextResponse.json({ ...userData, token });

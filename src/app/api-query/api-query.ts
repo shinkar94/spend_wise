@@ -11,9 +11,17 @@ const authApi = baseApi.injectEndpoints({
                     body: body
                 }),
                 invalidatesTags: ['Me'],
-            })
+            }),
+            me: builder.query<any | null, void>({
+                query: () => ({
+                    url: '/api/myMoney',
+                    method: 'GET',
+                }),
+                extraOptions: { maxRetries: 0 },
+                providesTags: ['Me'],
+            }),
         }
     }
 })
 
-export const {useLoginMutation} = authApi
+export const {useLoginMutation, useMeQuery} = authApi

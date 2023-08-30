@@ -1,9 +1,10 @@
 import {NextResponse} from "next/server";
-import { cookies } from 'next/headers'
+import {cookies} from 'next/headers'
 import jwt, {JwtPayload} from "jsonwebtoken";
 import User from "@/models/User";
 import Token from "@/models/token-model";
 import {ValidateAccessToken} from "@/app/service/validate/validate-token/validateAccessToken";
+import {SetCooke} from "@/app/service/set-cooke/setCooke";
 
 /**
  * @openapi
@@ -173,60 +174,60 @@ import {ValidateAccessToken} from "@/app/service/validate/validate-token/validat
 export async function GET(req: Request){
    const cookieStore = cookies()
    const accessToken = cookieStore.get('accessToken')
-   console.log(accessToken)
    function validateRefreshToken(token: string){
       try {
-         const tokenData = process.env.NEXT_JWT_REFRESH_SECRET && jwt.verify(token, process.env.NEXT_JWT_REFRESH_SECRET) as JwtPayload & { _id: string }
-         console.log("VALIDATE-REFRESH",tokenData)
-         return tokenData
+         return process.env.NEXT_JWT_REFRESH_SECRET && jwt.verify(token, process.env.NEXT_JWT_REFRESH_SECRET) as JwtPayload & {
+            id: string
+         }
       }catch (e) {
-         console.log(e)
-         console.log('INVALID-REFRESH-TOKEN')
-         console.log('RECONECT-ON-REGISTER')
+         return null
       }
    }
-   async function refreshData(id: string){
-      try {
-         const tokenData = await Token.findOne({_id: id})
-         console.log('TOKEN-DATA', tokenData)
-      }catch (e) {
-         console.log(e)
-      }
+   function refreshAccessToken(payload: PayloadType){
+         const token = process.env.NEXT_JWT_ACCESS_SECRET && jwt.sign({payload}, process.env.NEXT_JWT_ACCESS_SECRET,{expiresIn: '30s',})
+         SetCooke(token)
+         return token
    }
 
    async function getRefreshToken(id: string){
       try {
-         const tokenData = await Token.findOne({_id: id})
-         console.log('TOKEN-REFRESH-DATA', tokenData)
-         return tokenData
+         const tokenData = await Token.findOne({user: id})
+         return tokenData.refreshToken
       }catch (e) {
          return null
       }
    }
 
+   function parsingToken(token: string){
+      const decodedToken = jwt.decode(token, {complete: true})
+      return decodedToken?.payload.payload.id
+   }
 
    let data = {}
    if(accessToken){
       const checkToken = ValidateAccessToken(accessToken.value)
-      console.log("TOKEN-STATUS", checkToken)
       if(checkToken){
-         console.log('OPEN-IN-DATA')
+         console.log("LIVE-TOKEN")
+         //Изменить запрос к БД на декодирования живого токена
          const userData = await User.findOne({_id: checkToken.id})
          data = {...data, userData, checkToken}
       }else{
-         // const tokenData = getRefreshToken(accessToken.id)
-         // if(refreshToken){
-         //    const newRefreshToken = validateRefreshToken(refreshToken.value)
-         //    console.log("REFRESHTOKEN-STATUS", newRefreshToken)
-         //    if(newRefreshToken){
-         //       refreshData(newRefreshToken._id)
-         //    }
-         // }else{
-         //    console.log("REFRESHTOKEN-NOT-FOUND")
-         // }
+         console.log('DEAD-TOKEN')
+         const id = parsingToken(accessToken.value)
+         const refreshToken = await getRefreshToken(id)
+         if(refreshToken) {
+            const checkToken = validateRefreshToken(refreshToken)
+            if(checkToken){
+               const newAccessToken = refreshAccessToken(checkToken.payload)
+               data = {...checkToken.payload, token: newAccessToken}
+            }else{
+               console.log('REDIRECT-TO-LOGIN')
+            }
+         }else{
+            console.log('REDIRECT-TO-REGISTER')
+         }
       }
    }
-
    return NextResponse.json(data)
 }
 

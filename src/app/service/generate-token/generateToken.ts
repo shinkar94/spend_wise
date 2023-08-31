@@ -9,7 +9,7 @@ export type PayloadType = {
 }
 export const generateToken = (payload: PayloadType) =>{
     const refreshToken = process.env.NEXT_JWT_REFRESH_SECRET && jwt.sign({payload}, process.env.NEXT_JWT_REFRESH_SECRET, {expiresIn: '30d'})
-    const token = process.env.NEXT_JWT_ACCESS_SECRET && jwt.sign({payload}, process.env.NEXT_JWT_ACCESS_SECRET,{expiresIn: '30s',})
+    const token = process.env.NEXT_JWT_ACCESS_SECRET && jwt.sign({payload}, process.env.NEXT_JWT_ACCESS_SECRET,{expiresIn: '5m',})
     SetCooke(token)
     return {refreshToken, token}
 }

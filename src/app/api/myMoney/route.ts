@@ -5,6 +5,7 @@ import User from "@/models/User";
 import Token from "@/models/token-model";
 import {ValidateAccessToken} from "@/app/service/validate/validate-token/validateAccessToken";
 import {SetCooke} from "@/app/service/set-cooke/setCooke";
+import {PayloadType} from "@/app/service/generate-token/generateToken";
 
 /**
  * @openapi
@@ -198,9 +199,11 @@ export async function GET(req: Request){
       }
    }
 
-   function parsingToken(token: string){
-      const decodedToken = jwt.decode(token, {complete: true})
-      return decodedToken?.payload.payload.id
+
+   function parsingToken(token: string): string | null{
+      const decodedToken:JwtPayload | null = jwt.decode(token, {complete: true})
+      console.log('DECODE-TOKEN', decodedToken)
+      return decodedToken ? decodedToken.payload.payload.id : null;
    }
 
    let data = {}
@@ -214,7 +217,7 @@ export async function GET(req: Request){
       }else{
          console.log('DEAD-TOKEN')
          const id = parsingToken(accessToken.value)
-         const refreshToken = await getRefreshToken(id)
+         const refreshToken = id ? await getRefreshToken(id) : null
          if(refreshToken) {
             const checkToken = validateRefreshToken(refreshToken)
             if(checkToken){

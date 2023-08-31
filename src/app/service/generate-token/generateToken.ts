@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import {SetCooke} from "@/app/service/set-cooke/setCooke";
 
-type PayloadType = {
+export type PayloadType = {
     id: string,
     email: string,
     fullName: string,

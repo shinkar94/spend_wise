@@ -1,7 +1,6 @@
 import {NextResponse} from "next/server";
 import {cookies} from 'next/headers'
 import jwt, {JwtPayload} from "jsonwebtoken";
-import User from "@/models/User";
 import Token from "@/models/token-model";
 import {ValidateAccessToken} from "@/app/service/validate/validate-token/validateAccessToken";
 import {SetCooke} from "@/app/service/set-cooke/setCooke";
@@ -185,7 +184,7 @@ export async function GET(req: Request){
       }
    }
    function refreshAccessToken(payload: PayloadType){
-         const token = process.env.NEXT_JWT_ACCESS_SECRET && jwt.sign({payload}, process.env.NEXT_JWT_ACCESS_SECRET,{expiresIn: '30s',})
+         const token = process.env.NEXT_JWT_ACCESS_SECRET && jwt.sign({payload}, process.env.NEXT_JWT_ACCESS_SECRET,{expiresIn: '5m',})
          SetCooke(token)
          return token
    }
@@ -202,7 +201,6 @@ export async function GET(req: Request){
 
    function parsingToken(token: string): string | null{
       const decodedToken:JwtPayload | null = jwt.decode(token, {complete: true})
-      console.log('DECODE-TOKEN', decodedToken)
       return decodedToken ? decodedToken.payload.payload.id : null;
    }
 
@@ -210,10 +208,8 @@ export async function GET(req: Request){
    if(accessToken){
       const checkToken = ValidateAccessToken(accessToken.value)
       if(checkToken){
-         console.log("LIVE-TOKEN")
-         //Изменить запрос к БД на декодирования живого токена
-         const userData = await User.findOne({_id: checkToken.id})
-         data = {...data, userData, checkToken}
+         console.log('LIVE-TOKEN')
+         data = {...checkToken.payload, token: accessToken.value}
       }else{
          console.log('DEAD-TOKEN')
          const id = parsingToken(accessToken.value)

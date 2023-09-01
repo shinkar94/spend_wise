@@ -7,9 +7,6 @@ import Image from "next/image";
 import defaultImgUser from './../../img/default-user.svg'
 import {useAppSelector} from "@/hok/hoks";
 import {authSelectors} from "@/selectors/Selectors";
-import {useLoginMutation} from "@/app/api-query/api-query";
-import {useEffect} from "react";
-import {ResponseType, UserType} from "@/reducer/auth.slice";
 
 type NavLink = {
     label: string
@@ -24,7 +21,7 @@ export const Navigation = ({navLinks}: Props) => {
     const pathname = usePathname()
     return (
         <>
-            {navLinks.map((link, index) => {
+            {navLinks.map((link) => {
                 const isActive = pathname === link.href
                 return (
                     link.label === 'User'

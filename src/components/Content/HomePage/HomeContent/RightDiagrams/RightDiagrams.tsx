@@ -5,7 +5,7 @@ import {useAppSelector} from "@/hok/hoks";
 import {OperationsType} from "@/reducer/allStateReducer";
 import {Chart} from "chart.js/auto";
 
-export const RightDiagrams = React.memo(() => {
+export const RightDiagrams = React.memo(function RightDiagrams(){
     const outcome = useSumTransactions('outcome')
     const state = useAppSelector(state => state.allState)
     const expenseAnalytics: OperationsType[] = state.filter(item => item.type === 'outcome')

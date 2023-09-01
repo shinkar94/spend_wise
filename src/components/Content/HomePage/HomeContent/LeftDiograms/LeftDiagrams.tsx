@@ -8,7 +8,7 @@ type DataType = {
     labels: string[],
     values: number[]
 }
-export const LeftDiagrams = React.memo(() => {
+export const LeftDiagrams = React.memo(function LeftDiagrams() {
     const chartRef = useRef<HTMLCanvasElement>(null); // Используем useRef с типом элемента
     const state = useAppSelector(state => state.allState)
     const stateOutcome = state.filter(el => el.type === 'outcome')

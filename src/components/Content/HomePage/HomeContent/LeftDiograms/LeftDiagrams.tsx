@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useMemo, useRef} from "react";
 import {useAppSelector} from "@/hok/hoks";
 import {ChartConfiguration, ChartType, registerables} from "chart.js";
 import {Chart} from "chart.js/auto";
@@ -22,10 +22,14 @@ export const LeftDiagrams = React.memo(() => {
     const arr2 = arr.map(subarr => subarr.reduce((acc, el) => acc + el, 0));
 
 
-    const myData: DataType = {
+    // const myData: DataType = {
+    //     labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    //     values: arr2
+    // }
+    const myData: DataType = useMemo(() => ({
         labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         values: arr2
-    }
+    }), [arr2]);
 
     useEffect(() => {
         // Проверяем, что элемент canvas существует

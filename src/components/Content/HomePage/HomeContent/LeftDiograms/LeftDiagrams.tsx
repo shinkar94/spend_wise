@@ -8,7 +8,7 @@ type DataType = {
     labels: string[],
     values: number[]
 }
-export const LeftDiagrams = () => {
+export const LeftDiagrams = React.memo(() => {
     const chartRef = useRef<HTMLCanvasElement>(null); // Используем useRef с типом элемента
     const state = useAppSelector(state => state.allState)
     const stateOutcome = state.filter(el => el.type === 'outcome')
@@ -101,4 +101,4 @@ export const LeftDiagrams = () => {
     }, [myData]);
 
     return <canvas ref={chartRef} />; // Используем типизированный ref для элемента canvas
-};
+});

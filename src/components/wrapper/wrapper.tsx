@@ -5,10 +5,11 @@ import {Content} from "@/components/Content/Content";
 import {HelperType} from "@/reducer/helperReducer";
 import {HelperState} from "@/selectors/Selectors";
 import {AddOperationForm} from "@/components/AddOperationForm/AddOperationForm";
-import {useAppSelector} from "@/hok/hoks";
+import {useAppDispatch, useAppSelector} from "@/hok/hoks";
 import {S} from './wrapperStyle'
 import {useEffect} from "react";
 import {useMeQuery} from "@/app/api-query/api-query";
+import {authAction, NewResponseType} from "@/reducer/auth.slice";
 
 const GlobalStyle = createGlobalStyle<{ helper: HelperType }>`
   body {
@@ -19,8 +20,12 @@ const GlobalStyle = createGlobalStyle<{ helper: HelperType }>`
   }
 `
 export const Wrapper = () =>{
-    const {data} = useMeQuery()
-    console.log(data)
+    const {getUser} = authAction
+    const dispatch = useAppDispatch()
+    const {data}:{data?:NewResponseType} = useMeQuery()
+    useEffect(() => {
+        data && dispatch(getUser(data))
+    }, [data]);
     const helper = useAppSelector(HelperState);
     return (
         <>

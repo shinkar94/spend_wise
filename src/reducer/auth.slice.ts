@@ -2,6 +2,18 @@ import {createSlice} from "@reduxjs/toolkit";
 export type ResponseType = {
     data: UserType
 }
+type Action<T> = {
+    type: string;
+    payload: T;
+};
+export type NewResponseType = {
+    avatarUrl: string;
+    email: string;
+    fullName: string;
+    token: string;
+    id: string;
+}
+
 export type UserType = {
     avatarUrl: string;
     createdAt: string;
@@ -26,8 +38,16 @@ export const slice = createSlice({
     name: 'auth',
     initialState,
     reducers:{
-        getUser: (state, action) =>{
-            return action.payload.dataUser.data
+        getUser: (state, action: Action<NewResponseType>) =>{
+            return {
+                ...state,
+                avatarUrl: action.payload.avatarUrl,
+                email: action.payload.email,
+                fullName: action.payload.fullName,
+                token: action.payload.token,
+                _id: action.payload.id
+            }
+
         }
     },
     extraReducers: builder => {

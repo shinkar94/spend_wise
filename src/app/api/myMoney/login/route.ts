@@ -5,6 +5,7 @@ import {NextResponse} from "next/server";
 import {userDTO} from "@/app/service/dto/dto";
 import {generateToken} from "@/app/service/generate-token/generateToken";
 import {SaveRefreshToken} from "@/app/service/save-token/saveRefreshToken";
+import {ResponseUserType} from "@/reducer/auth.slice";
 
 /**
  * @openapi
@@ -27,7 +28,7 @@ import {SaveRefreshToken} from "@/app/service/save-token/saveRefreshToken";
  *             schema:
  *               $ref: '#/components/schemas/LoginUserSuccess'
  */
-export async function POST(req: Request) {
+export async function POST(req: Request):Promise<NextResponse<ResponseUserType | {message: string}>> {
     const {email, password} = await req.json()
     await connectMongoDB()
     const user = await User.findOne({email: email})
@@ -45,6 +46,6 @@ export async function POST(req: Request) {
     await SaveRefreshToken(user._id, refreshToken)
 
     const {passwordHash, ...userData} = user._doc;
-
-    return NextResponse.json({...userData, token})
+    const responseUser:ResponseUserType = {...userData, token}
+    return NextResponse.json(responseUser)
 }

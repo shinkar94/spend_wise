@@ -9,14 +9,11 @@ import {authSelectors} from "@/selectors/Selectors";
 import Image from "next/image";
 import {S} from '@/components/user/signIn/siginInStyle'
 
-
 const signInSchema = z.object({
     email: z.string().email(),
     password: z.string().min(3)
 });
 type SignInFormShem = z.infer<typeof signInSchema>
-
-
 export const SignInPage = () => {
     const dispatch = useAppDispatch()
     const userData = useAppSelector(authSelectors)
@@ -25,9 +22,10 @@ export const SignInPage = () => {
     const onSubmit = async (values: SignInFormShem) => {
         try {
             const response = await login(values)
-            const dataUser = response
-            console.log(response)
-            dispatch(getUser({dataUser: dataUser}))
+            if ('data' in response) {
+                const {email, avatarUrl, fullName, token, _id} = response.data
+                dispatch(getUser({email, avatarUrl, fullName, token, id: _id}))
+            }
         } catch (e) {
             console.log(e)
         }

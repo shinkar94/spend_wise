@@ -24,6 +24,9 @@ export type UserType = {
     __v: number;
     _id: string;
 };
+export type ResponseUserType = UserType & {
+    token: string
+}
 const initialState:UserType = {
     avatarUrl: "",
     createdAt: "",

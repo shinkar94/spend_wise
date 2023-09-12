@@ -1,10 +1,11 @@
 import {baseApi} from "@/app/api-query/base-api";
+import {ResponseUserType} from "@/reducer/auth.slice";
 
 
 const authApi = baseApi.injectEndpoints({
     endpoints: builder =>{
         return {
-            login: builder.mutation<void, {email: string; password: string}>({
+            login: builder.mutation<ResponseUserType, {email: string; password: string}>({
                 query: body => ({
                     url: '/api/myMoney/login',
                     method: 'POST',
